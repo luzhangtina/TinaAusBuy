@@ -24,7 +24,6 @@ public class Client implements Serializable {
     private String weChatId;
     private String aliPayId;
     private String phoneNumber;
-    private String address;
 
     @Column(updatable = false)
     @CreationTimestamp
@@ -39,11 +38,25 @@ public class Client implements Serializable {
             orphanRemoval = true)
     private List<OrderHead> orderHeads = new ArrayList<>();
 
+    @OneToMany(
+            mappedBy = "client",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true)
+    private List<PostInfo> postInfos = new ArrayList<>();
+
     public void addOrderHead(OrderHead orderHead) {
         orderHeads.add(orderHead);
     }
 
     public void removeOrderHead(OrderHead orderHead) {
         orderHeads.remove(orderHead);
+    }
+
+    public void addPostInfo(PostInfo postInfo) {
+        postInfos.add(postInfo);
+    }
+
+    public void removePostInfo(PostInfo postInfo) {
+        postInfos.remove(postInfo);
     }
 }

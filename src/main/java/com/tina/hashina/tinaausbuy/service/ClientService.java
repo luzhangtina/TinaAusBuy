@@ -20,14 +20,12 @@ public class ClientService {
     ClientRepository clientRepository;
 
     public Client createClient(String userName, String weChatId,
-                               String aliPayId, String phoneNumber,
-                               String address) {
+                               String aliPayId, String phoneNumber) {
         Client client = Client.builder()
                 .userName(userName)
                 .weChatId(weChatId)
                 .aliPayId(aliPayId)
                 .phoneNumber(phoneNumber)
-                .address(address)
                 .build();
 
         Client savedClient = clientRepository.save(client);
@@ -90,18 +88,6 @@ public class ClientService {
         }
 
         client.setAliPayId(alipayId);
-        clientRepository.save(client);
-        log.info("Updated client: {}", client);
-        return true;
-    }
-
-    public Boolean updateClientAddress(Client client, String address) {
-        if (address == null || address.length() <= 0 ) {
-            log.warn("Address is invalid");
-            return false;
-        }
-
-        client.setAddress(address);
         clientRepository.save(client);
         log.info("Updated client: {}", client);
         return true;
