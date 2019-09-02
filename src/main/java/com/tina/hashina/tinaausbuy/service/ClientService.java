@@ -82,7 +82,7 @@ public class ClientService {
     }
 
     public Boolean updateClientAlipayId(Client client, String alipayId) {
-        if (alipayId == null || alipayId.length() <= 0 ) {
+        if (alipayId == null ) {
             log.warn("Alipay ID is invalid");
             return false;
         }
@@ -102,16 +102,14 @@ public class ClientService {
         return clients;
     }
 
-    public Optional<Client> findOneClientByPhoneNumber(String phoneNumber) {
+    public List<Client> findClientsByPhoneNumber(String phoneNumber) {
         ExampleMatcher matcher = ExampleMatcher.matching()
                 .withMatcher("phoneNumber", exact());
-        Optional<Client> client = clientRepository.findOne(
+        List<Client> clients = clientRepository.findAll(
                 Example.of(Client.builder().phoneNumber(phoneNumber).build(), matcher));
-        if (client.isPresent()) {
-            log.info("Client Found: {}", client.get());
-        }
+        clients.forEach(client -> log.info("Client: {}", client));
 
-        return client;
+        return clients;
     }
 
     public Optional<Client> findOneClientByWechatId(String weChatId) {
@@ -138,5 +136,11 @@ public class ClientService {
         }
 
         return client;
+    }
+
+    public List<Client>  findAllClient() {
+        List<Client> clients = clientRepository.findAll();
+        clients.forEach(client -> log.info("Client Found: {}", client));
+        return clients;
     }
 }

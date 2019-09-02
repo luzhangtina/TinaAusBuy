@@ -29,7 +29,7 @@ public class PostInfoService {
                 .build();
         PostInfo savedPostInfo = postInfoRepository.save(postInfo);
         log.info("New post info: {}", savedPostInfo);
-        return savedPostInfo;
+        return postInfo;
     }
 
     public Boolean deletePostInfo(Long id) {

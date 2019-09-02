@@ -1,6 +1,7 @@
 package com.tina.hashina.tinaausbuy.module;
 
 import lombok.*;
+import lombok.extern.slf4j.Slf4j;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -16,6 +17,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Slf4j
 public class Client implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -58,5 +60,11 @@ public class Client implements Serializable {
 
     public void removePostInfo(PostInfo postInfo) {
         postInfos.remove(postInfo);
+    }
+
+    @Override
+    public String toString() {
+        String userInfo = "UserId: " + getUserId().toString() + " UserName: " + getUserName();
+        return userInfo;
     }
 }

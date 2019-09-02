@@ -47,4 +47,9 @@ public class PostInfo {
     public int hashCode() {
         return Objects.hashCode(id);
     }
+
+    @Override
+    public String toString() {
+        return "Post Id: " + getId() + " Name: " + getName() + " Address: " + getAddress() + " Phone: " + getPhoneNumber();
+    }
 }

@@ -8,3 +8,6 @@
 
 ### Test Data ###
 *.sql
+
+### Set Env ###
+set_env

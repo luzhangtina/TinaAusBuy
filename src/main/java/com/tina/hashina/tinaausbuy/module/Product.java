@@ -65,4 +65,9 @@ public class Product implements Serializable {
     public void removeOrderLine(OrderLine orderLine) {
         orderLines.remove(orderLine);
     }
+
+    @Override
+    public String toString() {
+        return "Product Id: " + getProductId().toString() + " EngName: " + getProNameEng() + " Price: " + getPriceRmb().toString();
+    }
 }
