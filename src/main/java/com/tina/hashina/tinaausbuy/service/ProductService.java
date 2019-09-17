@@ -91,13 +91,14 @@ public class ProductService {
         return true;
     }
 
-    public Optional<Product> findProductByProductId(Long productId) {
+    public Product findProductByProductId(Long productId) {
         Optional<Product> product = productRepository.findById(productId);
         if (product.isPresent()) {
             log.info("Product Found: {}", product.get());
+            return product.get();
         }
 
-        return product;
+        return null;
     }
 
     public List<Product> findProductByProductNameEng(String proNameEng) {
@@ -120,6 +121,12 @@ public class ProductService {
 
     public List<Product> findProductLikeProductNameChn(String proNameChn) {
         List<Product> products = productRepository.findByProNameChnContaining(proNameChn);
+        products.forEach(product -> log.info("Product Found: {}", product));
+        return products;
+    }
+
+    public List<Product> getProducts() {
+        List<Product> products = productRepository.findAll();
         products.forEach(product -> log.info("Product Found: {}", product));
         return products;
     }
