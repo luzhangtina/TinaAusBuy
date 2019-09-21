@@ -14,6 +14,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name="product")
@@ -68,6 +69,25 @@ public class Product implements Serializable {
 
     @Override
     public String toString() {
-        return "Product Id: " + getProductId().toString() + " EngName: " + getProNameEng() + " Price: " + getPriceRmb().toString();
+        return "Product Id: " + getProductId().toString()
+                + " EngName: " + getProNameEng()
+                + " Price: " + getPriceRmb().getAmount().toString();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Product product = (Product) o;
+        return Double.compare(product.measureValue, measureValue) == 0 &&
+                productId.equals(product.productId) &&
+                proNameEng.equals(product.proNameEng) &&
+                Objects.equals(proNameChn, product.proNameChn) &&
+                measureUnit == product.measureUnit;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(productId, proNameEng, proNameChn, measureValue, measureUnit);
     }
 }
