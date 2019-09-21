@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.joda.money.CurrencyUnit;
 import org.joda.money.Money;
 
 import javax.persistence.*;
@@ -43,7 +44,6 @@ public class Product implements Serializable {
     private double measureValue;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
     private MeasureUnit measureUnit;
 
     @Column(updatable = false)
@@ -58,6 +58,17 @@ public class Product implements Serializable {
             cascade = CascadeType.ALL,
             orphanRemoval = true)
     private List<OrderLine> orderLines = new ArrayList<>();
+
+    public Product(String proNameEng, String proNameChn,
+                   double priceAud, double priceRmb,
+                   double measureValue, MeasureUnit measureUnit) {
+        this.proNameEng = proNameEng;
+        this.proNameChn = proNameChn;
+        this.priceAud = Money.of(CurrencyUnit.AUD, priceAud);
+        this.priceRmb = Money.of(CurrencyUnit.of("CNY"), priceRmb);
+        this.measureValue = measureValue;
+        this.measureUnit = measureUnit;
+    }
 
     public void addOrderLine(OrderLine orderLine) {
         orderLines.add(orderLine);

@@ -43,11 +43,12 @@ public class IntegrationTest {
     }
 
     @Test
-    public void getProductByProductId_shouldReturnNotFoundForNotExistProductId() {
+    public void getProductByProductId_shouldReturnNullForNotExistProductId() {
         Product product = products.get(products.size() - 1);
         ResponseEntity<Product> responseEntity = testRestTemplate
                 .getForEntity("/products/{productId}", Product.class, (product.getProductId() + 1));
-        assertEquals(HttpStatus.NOT_FOUND, responseEntity.getStatusCode());
+        assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
+        assertNull(responseEntity.getBody());
     }
 
     @Test
