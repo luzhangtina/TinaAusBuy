@@ -31,14 +31,16 @@ public class IntegrationTest {
 
     @Before
     public void setUp() {
-        Product product = productService.createProduct("Test01",
+        Product product = new Product("Test01",
                 "测试产品01", 5,25, 25,
                 MeasureUnit.GRAM);
+        productService.createProduct(product);
         products.add(product);
 
-        product = productService.createProduct("Test02",
+        product = new Product("Test02",
                 "测试产品02", 15,75, 100,
                 MeasureUnit.MILLILITER);
+        productService.createProduct(product);
         products.add(product);
     }
 

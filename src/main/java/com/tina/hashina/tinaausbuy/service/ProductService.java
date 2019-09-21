@@ -1,7 +1,6 @@
 package com.tina.hashina.tinaausbuy.service;
 
 
-import com.tina.hashina.tinaausbuy.module.MeasureUnit;
 import com.tina.hashina.tinaausbuy.module.Product;
 import com.tina.hashina.tinaausbuy.repository.ProductRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -19,20 +18,7 @@ public class ProductService {
     @Autowired
     ProductRepository productRepository;
 
-    public Product createProduct(String proNameEng,
-                                 String proNameChn,
-                                 double priceAud,
-                                 double priceRmb,
-                                 double measureValue,
-                                 MeasureUnit measureUnit) {
-        Product product = Product.builder()
-                .proNameEng(proNameEng)
-                .proNameChn(proNameChn)
-                .priceAud(Money.of(CurrencyUnit.AUD, priceAud))
-                .priceRmb(Money.of(CurrencyUnit.of("CNY"), priceRmb))
-                .measureValue(measureValue)
-                .measureUnit(measureUnit)
-                .build();
+    public Product createProduct(Product product) {
         Product savedProduct = productRepository.save(product);
         log.info("Saved Product: {}", savedProduct);
         return savedProduct;
@@ -58,8 +44,8 @@ public class ProductService {
             return false;
         }
 
-        product.setPriceAud(Money.of(CurrencyUnit.AUD, priceAud));
-        product.setPriceRmb(Money.of(CurrencyUnit.of("CNY"), priceRmb));
+        product.setPriceAud(priceAud);
+        product.setPriceRmb(priceRmb);
         productRepository.save(product);
         log.info("Updated product: {}", product);
         return true;

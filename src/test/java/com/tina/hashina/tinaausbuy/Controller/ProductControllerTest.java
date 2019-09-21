@@ -1,8 +1,10 @@
 package com.tina.hashina.tinaausbuy.Controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tina.hashina.tinaausbuy.module.MeasureUnit;
 import com.tina.hashina.tinaausbuy.module.Product;
 import com.tina.hashina.tinaausbuy.service.ProductService;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,9 +18,12 @@ import java.util.Arrays;
 
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.assertEquals;
+import static org.mockito.ArgumentMatchers.isNotNull;
 import static org.mockito.Mockito.when;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
+import static org.springframework.http.MediaType.APPLICATION_JSON_UTF8_VALUE;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -26,9 +31,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(ProductController.class)
+@Slf4j
 public class ProductControllerTest {
     @Autowired
     private MockMvc mockMvc;
+
+    @Autowired
+    private ObjectMapper objectMapper;
 
     @MockBean
     private ProductService productService;
@@ -57,5 +66,21 @@ public class ProductControllerTest {
                 .andExpect(jsonPath("$", hasSize(2)))
                 .andExpect(jsonPath("$.[0].proNameEng").value("Test01"))
                 .andExpect(jsonPath("$.[1].proNameEng").value("Test02"));
+    }
+
+    @Test
+    public void addProduct_shouldReturnProduct() throws Exception {
+        Product product = new Product("Test01","测试产品01", 5,25, 25,
+                MeasureUnit.GRAM);
+
+        when(productService.createProduct(isNotNull())).thenReturn(product);
+
+        this.mockMvc.perform(post("/products")
+                .content(objectMapper.writeValueAsString(product))
+                .contentType(APPLICATION_JSON_UTF8_VALUE)
+                .accept(APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.proNameEng").value("Test01"));
     }
 }
