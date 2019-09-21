@@ -29,8 +29,8 @@ public class ProductController {
     }
 
     @GetMapping("/products/{productId}")
-    public Product getProductById(@PathVariable String productId) {
-        Product product = this.productService.findProductByProductId(Long.valueOf(productId));
+    public Product getProductById(@PathVariable Long productId) {
+        Product product = this.productService.findProductByProductId(productId);
         if (product == null) {
             throw new ProductNotFoundException();
         }

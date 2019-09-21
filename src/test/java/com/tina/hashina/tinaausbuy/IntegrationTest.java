@@ -44,8 +44,9 @@ public class IntegrationTest {
 
     @Test
     public void getProductByProductId_shouldReturnNotFoundForNotExistProductId() {
+        Product product = products.get(products.size() - 1);
         ResponseEntity<Product> responseEntity = testRestTemplate
-                .getForEntity("/products/{productId}", Product.class, "3");
+                .getForEntity("/products/{productId}", Product.class, (product.getProductId() + 1));
         assertEquals(HttpStatus.NOT_FOUND, responseEntity.getStatusCode());
     }
 
@@ -59,7 +60,7 @@ public class IntegrationTest {
     }
 
     @After
-    public void rollback() {
+    public void tearDown() {
         products.forEach(product -> {
             productService.deleteProduct(product.getProductId());
         });
