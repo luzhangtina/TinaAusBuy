@@ -1,4 +1,4 @@
-package com.tina.hashina.tinaausbuy;
+package com.tina.hashina.tinaausbuy.integration;
 
 import com.tina.hashina.tinaausbuy.module.MeasureUnit;
 import com.tina.hashina.tinaausbuy.module.Product;
@@ -21,7 +21,7 @@ import static org.junit.Assert.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class IntegrationTest {
+public class productIntegrationTest {
     @Autowired
     private TestRestTemplate testRestTemplate;
     @Autowired

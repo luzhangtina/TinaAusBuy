@@ -1,4 +1,4 @@
-package com.tina.hashina.tinaausbuy.Controller;
+package com.tina.hashina.tinaausbuy.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tina.hashina.tinaausbuy.module.MeasureUnit;
