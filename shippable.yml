@@ -8,5 +8,6 @@ build:
     # Create folders for test and code coverage
     - mkdir -p shippable/codecoverage
     - mkdir -p shippable/testresults
-    - mvn install
+    - mvn clean install
     - cp -R target/surefire-reports shippable/testresults
+    - cp target/jacoco-report/jacoco.xml shippable/codecoverage
