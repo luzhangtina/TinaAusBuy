@@ -4,8 +4,6 @@ package com.tina.hashina.tinaausbuy.service;
 import com.tina.hashina.tinaausbuy.module.Product;
 import com.tina.hashina.tinaausbuy.repository.ProductRepository;
 import lombok.extern.slf4j.Slf4j;
-import org.joda.money.CurrencyUnit;
-import org.joda.money.Money;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -36,45 +34,10 @@ public class ProductService {
         }
     }
 
-    public Boolean updateProductPrice(Product product,
-                                      double priceAud,
-                                      double priceRmb ) {
-        if (priceAud < 0 || priceRmb < 0) {
-            log.warn("Price is invalid");
-            return false;
-        }
-
-        product.setPriceAud(priceAud);
-        product.setPriceRmb(priceRmb);
-        productRepository.save(product);
-        log.info("Updated product: {}", product);
-        return true;
-    }
-
-    public Boolean updateProductNameEng(Product product,
-                                        String proNameEng ) {
-        if (proNameEng.length() <= 0) {
-            log.warn("Product name is invalid");
-            return false;
-        }
-
-        product.setProNameEng(proNameEng);
-        productRepository.save(product);
-        log.info("Updated product: {}", product);
-        return true;
-    }
-
-    public Boolean updateProductNameChn(Product product,
-                                        String proNameChn ) {
-        if (proNameChn == null || proNameChn.length() <= 0) {
-            log.warn("Product name is invalid");
-            return false;
-        }
-
-        product.setProNameChn(proNameChn);
-        productRepository.save(product);
-        log.info("Updated product: {}", product);
-        return true;
+    public Product updateProduct(Product product) {
+        Product savedProduct = productRepository.save(product);
+        log.info("Updated product: {}", savedProduct);
+        return savedProduct;
     }
 
     public Product findProductByProductId(Long productId) {

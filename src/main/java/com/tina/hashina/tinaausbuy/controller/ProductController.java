@@ -29,7 +29,12 @@ public class ProductController {
 
     @PostMapping("/products")
     public Product addProduct(@Valid @RequestBody Product product) {
-        log.info("{}", product);
         return this.productService.createProduct(product);
+    }
+
+    @PutMapping("/products/{productId}")
+    public Product updateProduct(@PathVariable Long productId,
+                                 @Valid @RequestBody Product product) {
+        return this.productService.updateProduct(product);
     }
 }

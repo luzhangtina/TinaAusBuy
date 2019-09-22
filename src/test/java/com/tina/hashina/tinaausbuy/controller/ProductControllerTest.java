@@ -1,5 +1,6 @@
 package com.tina.hashina.tinaausbuy.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tina.hashina.tinaausbuy.module.MeasureUnit;
 import com.tina.hashina.tinaausbuy.module.Product;
@@ -22,8 +23,7 @@ import static org.mockito.ArgumentMatchers.isNotNull;
 import static org.mockito.Mockito.when;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.http.MediaType.APPLICATION_JSON_UTF8_VALUE;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -99,5 +99,33 @@ public class ProductControllerTest {
                 .accept(APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void addProduct_shouldReturnBadRequestWhenProductIsNull() throws Exception {
+        when(productService.createProduct(isNotNull())).thenReturn(null);
+
+        this.mockMvc.perform(post("/products")
+                .accept(APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void updateProduct_shouldReturn200() throws Exception {
+        Product product = new Product("Test01","测试产品01", 5,25, 25,
+                MeasureUnit.GRAM);
+
+        when(productService.updateProduct(isNotNull())).thenReturn(product);
+
+        this.mockMvc.perform(put("/products/{productId}", 2)
+                .content(objectMapper.writeValueAsString(product))
+                .contentType(APPLICATION_JSON_UTF8_VALUE)
+                .accept(APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.proNameEng").value("Test01"))
+                .andExpect(jsonPath("$.priceAud").value(5))
+                .andExpect(jsonPath("$.priceRmb").value(25));
     }
 }
