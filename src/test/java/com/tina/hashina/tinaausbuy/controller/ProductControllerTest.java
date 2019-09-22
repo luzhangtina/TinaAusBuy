@@ -42,6 +42,30 @@ public class ProductControllerTest {
     private ProductService productService;
 
     @Test
+    public void getProductById_shouldReturnNoContentWhenProductNotExist() throws Exception {
+        when(productService.getProductById(isNotNull())).thenReturn(null);
+        this.mockMvc.perform(get("/products/{productId}", 1)
+                .accept(APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().isNoContent());
+    }
+
+    @Test
+    public void getProductById_shouldReturnProductWhenProductExist() throws Exception {
+        Product product = new Product("Test01","测试产品01", 5,25, 25,
+                MeasureUnit.GRAM);
+
+        when(productService.getProductById(isNotNull())).thenReturn(product);
+        this.mockMvc.perform(get("/products/{productId}", 1)
+                .accept(APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.proNameEng").value("Test01"))
+                .andExpect(jsonPath("$.priceAud").value(5))
+                .andExpect(jsonPath("$.priceRmb").value(25));
+    }
+
+    @Test
     public void getProducts_shouldReturnEmptyForZeroProduct() throws Exception {
         when(productService.getProducts()).thenReturn(null);
         MvcResult mvcResult = this.mockMvc.perform(get("/products").accept(APPLICATION_JSON))

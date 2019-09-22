@@ -41,17 +41,17 @@ public class ProductService {
             return null;
         }
 
-        Product productInDB = findProductByProductId(productId);
+        Product productInDB = getProductById(productId);
         if (productInDB == null) {
             return null;
         }
-        
+
         Product savedProduct = productRepository.save(product);
         log.info("Updated product: {}", savedProduct);
         return savedProduct;
     }
 
-    public Product findProductByProductId(Long productId) {
+    public Product getProductById(Long productId) {
         Optional<Product> product = productRepository.findById(productId);
         if (product.isPresent()) {
             log.info("Product Found: {}", product.get());

@@ -20,13 +20,19 @@ public class ProductController {
     }
 
     @GetMapping("/products")
-    public List<Product> getProducts() {
-        return this.productService.getProducts();
+    public ResponseEntity<List<Product>> getProducts() {
+        List<Product> products = this.productService.getProducts();
+        return new ResponseEntity(products, HttpStatus.OK);
     }
 
     @GetMapping("/products/{productId}")
-    public Product getProductById(@PathVariable Long productId) {
-        return this.productService.findProductByProductId(productId);
+    public ResponseEntity<Product> getProductById(@PathVariable Long productId) {
+        Product savedProduct = this.productService.getProductById(productId);
+        if (savedProduct == null) {
+            return new ResponseEntity(null, HttpStatus.NO_CONTENT);
+        } else {
+            return new ResponseEntity(savedProduct, HttpStatus.OK);
+        }
     }
 
     @PostMapping("/products")
