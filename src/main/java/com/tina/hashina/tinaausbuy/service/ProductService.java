@@ -34,7 +34,18 @@ public class ProductService {
         }
     }
 
-    public Product updateProduct(Product product) {
+    public Product updateProduct(Long productId, Product product) {
+        if (product == null || productId == null) {
+            return null;
+        } else if (!productId.equals(product.getProductId())) {
+            return null;
+        }
+
+        Product productInDB = findProductByProductId(productId);
+        if (productInDB == null) {
+            return null;
+        }
+        
         Product savedProduct = productRepository.save(product);
         log.info("Updated product: {}", savedProduct);
         return savedProduct;

@@ -30,14 +30,24 @@ public class ProductController {
     }
 
     @PostMapping("/products")
-    public Product addProduct(@Valid @RequestBody Product product) {
-        return this.productService.createProduct(product);
+    public ResponseEntity<Product> addProduct(@Valid @RequestBody Product product) {
+        Product savedProduct= this.productService.createProduct(product);
+        if ( savedProduct == null) {
+            return new ResponseEntity(null, HttpStatus.UNPROCESSABLE_ENTITY);
+        } else {
+            return new ResponseEntity(savedProduct, HttpStatus.CREATED);
+        }
     }
 
     @PutMapping("/products/{productId}")
-    public Product updateProduct(@PathVariable Long productId,
+    public ResponseEntity<Product> updateProduct(@PathVariable Long productId,
                                  @Valid @RequestBody Product product) {
-        return this.productService.updateProduct(product);
+        Product savedProduct =  this.productService.updateProduct(productId, product);
+        if (savedProduct == null) {
+            return new ResponseEntity(null, HttpStatus.NO_CONTENT);
+        } else {
+            return new ResponseEntity(savedProduct, HttpStatus.OK);
+        }
     }
 
     @DeleteMapping("/products/{productId}")

@@ -1,6 +1,5 @@
 package com.tina.hashina.tinaausbuy.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tina.hashina.tinaausbuy.module.MeasureUnit;
 import com.tina.hashina.tinaausbuy.module.Product;
@@ -80,7 +79,7 @@ public class ProductControllerTest {
                 .contentType(APPLICATION_JSON_UTF8_VALUE)
                 .accept(APPLICATION_JSON))
                 .andDo(print())
-                .andExpect(status().isOk())
+                .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.proNameEng").value("Test01"))
                 .andExpect(jsonPath("$.priceAud").value(5))
                 .andExpect(jsonPath("$.priceRmb").value(25));
@@ -112,11 +111,26 @@ public class ProductControllerTest {
     }
 
     @Test
+    public void addProduct_shouldReturn422tWhenFailToCreateProduct() throws Exception {
+        Product product = new Product("Test01","测试产品01", 5,25, 25,
+                MeasureUnit.GRAM);
+
+        when(productService.createProduct(isNotNull())).thenReturn(null);
+
+        this.mockMvc.perform(post("/products")
+                .content(objectMapper.writeValueAsString(product))
+                .contentType(APPLICATION_JSON_UTF8_VALUE)
+                .accept(APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().isUnprocessableEntity());
+    }
+
+    @Test
     public void updateProduct_shouldReturn200() throws Exception {
         Product product = new Product("Test01","测试产品01", 5,25, 25,
                 MeasureUnit.GRAM);
 
-        when(productService.updateProduct(isNotNull())).thenReturn(product);
+        when(productService.updateProduct(isNotNull(), isNotNull())).thenReturn(product);
 
         this.mockMvc.perform(put("/products/{productId}", 2)
                 .content(objectMapper.writeValueAsString(product))
