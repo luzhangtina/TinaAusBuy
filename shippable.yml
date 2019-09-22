@@ -7,5 +7,6 @@ build:
   ci:
     # Create folders for test and code coverage
     - mkdir -p shippable/codecoverage
+    - mkdir -p shippable/testresults
     - mvn install
-    - cp -r target shippable/codecoverage
+    - cp -R target/surefire-reports shippable/testresults
