@@ -128,4 +128,24 @@ public class ProductControllerTest {
                 .andExpect(jsonPath("$.priceAud").value(5))
                 .andExpect(jsonPath("$.priceRmb").value(25));
     }
+
+    @Test
+    public void deleteProduct_shouldReturnAcceptWhenProductExist() throws Exception {
+        when(productService.deleteProduct(isNotNull())).thenReturn(true);
+
+        this.mockMvc.perform(delete("/products/{productId}", 2)
+                .accept(APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    public void deleteProduct_shouldReturnAcceptWhenProductNotExist() throws Exception {
+        when(productService.deleteProduct(isNotNull())).thenReturn(false);
+
+        this.mockMvc.perform(delete("/products/{productId}", 2)
+                .accept(APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().isNoContent());
+    }
 }
