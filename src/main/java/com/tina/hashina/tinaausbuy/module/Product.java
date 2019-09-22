@@ -14,6 +14,7 @@ import org.joda.money.CurrencyUnit;
 import org.joda.money.Money;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
@@ -31,6 +32,7 @@ public class Product implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long productId;
 
+    @NotNull
     private String proNameEng;
     private String proNameChn;
 

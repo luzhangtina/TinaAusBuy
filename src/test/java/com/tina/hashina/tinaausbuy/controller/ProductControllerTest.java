@@ -85,4 +85,19 @@ public class ProductControllerTest {
                 .andExpect(jsonPath("$.priceAud").value(5))
                 .andExpect(jsonPath("$.priceRmb").value(25));
     }
+
+    @Test
+    public void addProduct_shouldReturnBadRequestWhenNameIsNull() throws Exception {
+        Product product = new Product(null,"测试产品01", 5,25, 25,
+                MeasureUnit.GRAM);
+
+        when(productService.createProduct(isNotNull())).thenReturn(product);
+
+        this.mockMvc.perform(post("/products")
+                .content(objectMapper.writeValueAsString(product))
+                .contentType(APPLICATION_JSON_UTF8_VALUE)
+                .accept(APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().isBadRequest());
+    }
 }
