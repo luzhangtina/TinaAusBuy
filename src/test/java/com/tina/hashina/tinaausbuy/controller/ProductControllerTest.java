@@ -81,6 +81,8 @@ public class ProductControllerTest {
                 .accept(APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.proNameEng").value("Test01"));
+                .andExpect(jsonPath("$.proNameEng").value("Test01"))
+                .andExpect(jsonPath("$.priceAud").value(5))
+                .andExpect(jsonPath("$.priceRmb").value(25));
     }
 }

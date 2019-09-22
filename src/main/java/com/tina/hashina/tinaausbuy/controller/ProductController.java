@@ -18,19 +18,16 @@ public class ProductController {
 
     @GetMapping("/products")
     public List<Product> getProducts() {
-        List<Product> products = this.productService.getProducts();
-        return products;
+        return this.productService.getProducts();
     }
 
     @GetMapping("/products/{productId}")
     public Product getProductById(@PathVariable Long productId) {
-        Product product = this.productService.findProductByProductId(productId);
-        return product;
+        return this.productService.findProductByProductId(productId);
     }
 
     @PostMapping("/products")
     public Product addProduct(@RequestBody Product product) {
-        Product savedProduct = this.productService.createProduct(product);
-        return savedProduct;
+        return this.productService.createProduct(product);
     }
 }

@@ -24,6 +24,7 @@ import static org.junit.Assert.*;
 public class productIntegrationTest {
     @Autowired
     private TestRestTemplate testRestTemplate;
+
     @Autowired
     private ProductService productService;
 
@@ -64,9 +65,7 @@ public class productIntegrationTest {
 
     @After
     public void tearDown() {
-        products.forEach(product -> {
-            productService.deleteProduct(product.getProductId());
-        });
+        products.forEach(product -> productService.deleteProduct(product.getProductId()));
 
         products.clear();
     }
