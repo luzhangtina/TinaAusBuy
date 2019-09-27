@@ -144,7 +144,7 @@ public class ClientService {
         return clients;
     }
 
-    public Client findClientId(Long userId) {
+    public Client findClientById(Long userId) {
         Optional<Client> client = clientRepository.findById(userId);
         if (client.isPresent()) {
             log.info("Client Found: {}", client.get());

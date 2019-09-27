@@ -65,9 +65,20 @@ public class ClientControllerTest {
 
     @Test
     public void getClientById_shouldReturnNoContentWhenClientNotExist() throws Exception {
-        when(clientService.findClientId(notNull())).thenReturn(null);
+        when(clientService.findClientById(notNull())).thenReturn(null);
         this.mockMvc.perform(get("/clients/{userId}", 1).accept(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isNoContent());
+    }
+
+    @Test
+    public void getClientById_shouldReturnClientWhenClientExist() throws Exception {
+        when(clientService.findClientById(notNull())).thenReturn(new Client("client01",
+                "", "", ""));
+
+        this.mockMvc.perform(get("/clients/{userId}", 1).accept(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.userName").value("client01"));
     }
 }

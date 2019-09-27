@@ -31,7 +31,7 @@ public class ClientController {
 
     @GetMapping("/clients/{userId}")
     public ResponseEntity<Client> getClientById(@PathVariable Long userId) {
-        Client client = clientService.findClientId(userId);
+        Client client = clientService.findClientById(userId);
         if (client == null) {
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
         }
