@@ -9,5 +9,8 @@
 ### Test Data ###
 *.sql
 
+### Resources
+src/main/resources/.DS_Store
+
 ### Set Env ###
 set_env

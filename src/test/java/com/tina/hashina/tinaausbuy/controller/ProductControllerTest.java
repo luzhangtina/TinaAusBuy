@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tina.hashina.tinaausbuy.module.MeasureUnit;
 import com.tina.hashina.tinaausbuy.module.Product;
 import com.tina.hashina.tinaausbuy.service.ProductService;
-import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +29,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(ProductController.class)
-@Slf4j
 public class ProductControllerTest {
     @Autowired
     private MockMvc mockMvc;
