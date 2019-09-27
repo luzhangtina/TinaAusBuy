@@ -1,6 +1,6 @@
 package com.tina.hashina.tinaausbuy.service;
 
-import com.tina.hashina.tinaausbuy.module.*;
+import com.tina.hashina.tinaausbuy.model.*;
 import com.tina.hashina.tinaausbuy.repository.OrderHeadRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.joda.money.CurrencyUnit;

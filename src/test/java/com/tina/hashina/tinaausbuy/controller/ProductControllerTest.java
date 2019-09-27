@@ -1,8 +1,8 @@
 package com.tina.hashina.tinaausbuy.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.tina.hashina.tinaausbuy.module.MeasureUnit;
-import com.tina.hashina.tinaausbuy.module.Product;
+import com.tina.hashina.tinaausbuy.model.MeasureUnit;
+import com.tina.hashina.tinaausbuy.model.Product;
 import com.tina.hashina.tinaausbuy.service.ProductService;
 import org.junit.Test;
 import org.junit.runner.RunWith;

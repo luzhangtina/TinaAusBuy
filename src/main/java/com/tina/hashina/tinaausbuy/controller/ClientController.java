@@ -1,11 +1,10 @@
 package com.tina.hashina.tinaausbuy.controller;
 
-import com.tina.hashina.tinaausbuy.module.Client;
+import com.tina.hashina.tinaausbuy.model.Client;
 import com.tina.hashina.tinaausbuy.service.ClientService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

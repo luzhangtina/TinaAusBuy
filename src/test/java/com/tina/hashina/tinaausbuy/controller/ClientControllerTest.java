@@ -1,7 +1,7 @@
 package com.tina.hashina.tinaausbuy.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.tina.hashina.tinaausbuy.module.Client;
+import com.tina.hashina.tinaausbuy.model.Client;
 import com.tina.hashina.tinaausbuy.service.ClientService;
 import org.junit.Test;
 import org.junit.runner.RunWith;

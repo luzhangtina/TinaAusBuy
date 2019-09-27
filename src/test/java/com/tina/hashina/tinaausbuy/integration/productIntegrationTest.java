@@ -1,7 +1,7 @@
 package com.tina.hashina.tinaausbuy.integration;
 
-import com.tina.hashina.tinaausbuy.module.MeasureUnit;
-import com.tina.hashina.tinaausbuy.module.Product;
+import com.tina.hashina.tinaausbuy.model.MeasureUnit;
+import com.tina.hashina.tinaausbuy.model.Product;
 import com.tina.hashina.tinaausbuy.service.ProductService;
 import org.junit.After;
 import org.junit.Before;

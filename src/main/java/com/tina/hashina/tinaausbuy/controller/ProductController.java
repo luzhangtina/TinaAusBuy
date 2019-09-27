@@ -1,6 +1,6 @@
 package com.tina.hashina.tinaausbuy.controller;
 
-import com.tina.hashina.tinaausbuy.module.Product;
+import com.tina.hashina.tinaausbuy.model.Product;
 import com.tina.hashina.tinaausbuy.service.ProductService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,6 +1,6 @@
 package com.tina.hashina.tinaausbuy.repository;
 
-import com.tina.hashina.tinaausbuy.module.PostInfo;
+import com.tina.hashina.tinaausbuy.model.PostInfo;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

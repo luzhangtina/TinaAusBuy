@@ -1,4 +1,4 @@
-package com.tina.hashina.tinaausbuy.module;
+package com.tina.hashina.tinaausbuy.model;
 
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
@@ -8,9 +8,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 @Entity
 @Table(name="client")

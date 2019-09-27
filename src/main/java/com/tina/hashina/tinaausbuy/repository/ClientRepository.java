@@ -1,6 +1,6 @@
 package com.tina.hashina.tinaausbuy.repository;
 
-import com.tina.hashina.tinaausbuy.module.Client;
+import com.tina.hashina.tinaausbuy.model.Client;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

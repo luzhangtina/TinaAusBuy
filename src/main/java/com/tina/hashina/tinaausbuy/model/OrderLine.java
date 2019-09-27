@@ -1,4 +1,4 @@
-package com.tina.hashina.tinaausbuy.module;
+package com.tina.hashina.tinaausbuy.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

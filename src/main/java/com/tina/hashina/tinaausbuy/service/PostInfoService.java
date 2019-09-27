@@ -1,7 +1,7 @@
 package com.tina.hashina.tinaausbuy.service;
 
-import com.tina.hashina.tinaausbuy.module.Client;
-import com.tina.hashina.tinaausbuy.module.PostInfo;
+import com.tina.hashina.tinaausbuy.model.Client;
+import com.tina.hashina.tinaausbuy.model.PostInfo;
 import com.tina.hashina.tinaausbuy.repository.PostInfoRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

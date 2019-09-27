@@ -1,4 +1,4 @@
-package com.tina.hashina.tinaausbuy.module;
+package com.tina.hashina.tinaausbuy.model;
 
 public enum OrderLineState {
     INIT,
