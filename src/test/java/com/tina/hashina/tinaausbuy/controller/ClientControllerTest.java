@@ -164,4 +164,14 @@ public class ClientControllerTest {
                 .andDo(print())
                 .andExpect(status().isNoContent());
     }
+
+    @Test
+    public void deleteClient_shouldReturn200WhenDeleteSuccessfully() throws Exception {
+        when(clientService.deleteClient(notNull())).thenReturn(true);
+
+        this.mockMvc.perform(delete("/clients/{userId}", 1)
+                .accept(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().isOk());
+    }
 }

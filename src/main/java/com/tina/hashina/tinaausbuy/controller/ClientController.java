@@ -5,6 +5,7 @@ import com.tina.hashina.tinaausbuy.service.ClientService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -55,5 +56,14 @@ public class ClientController {
         }
 
         return new ResponseEntity<>(updatedClient, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/clients/{userId}")
+    public ResponseEntity<HttpStatus>  deleteClient(@PathVariable Long userId) {
+        boolean deleteResult = clientService.deleteClient(userId);
+        if (deleteResult) {
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }
