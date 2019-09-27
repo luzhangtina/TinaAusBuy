@@ -8,6 +8,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
@@ -17,7 +18,8 @@ import java.util.Objects;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class PostInfo {
+public class PostInfo implements Serializable {
+    private static final long serialVersionUID = -7430304724173364072L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

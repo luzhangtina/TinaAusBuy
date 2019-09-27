@@ -19,6 +19,7 @@ import java.util.List;
 @AllArgsConstructor
 @Slf4j
 public class Client implements Serializable {
+    private static final long serialVersionUID = -8290475939114319785L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;

@@ -28,6 +28,7 @@ import java.util.Objects;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Product implements Serializable {
+    private static final long serialVersionUID = -6452119412121738557L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long productId;

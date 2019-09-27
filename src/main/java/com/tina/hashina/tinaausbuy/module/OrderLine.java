@@ -19,6 +19,7 @@ import java.util.Objects;
 @NoArgsConstructor
 @AllArgsConstructor
 public class OrderLine implements Serializable {
+    private static final long serialVersionUID = -3234383809086524010L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long orderLineNumber;

@@ -23,6 +23,7 @@ import java.util.Objects;
 @NoArgsConstructor
 @AllArgsConstructor
 public class OrderHead implements Serializable {
+    private static final long serialVersionUID = -462462010262900116L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long orderNumber;
