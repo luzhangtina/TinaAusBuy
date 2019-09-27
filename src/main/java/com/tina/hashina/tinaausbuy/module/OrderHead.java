@@ -65,12 +65,6 @@ public class OrderHead implements Serializable {
     @UpdateTimestamp
     private Date updateTime;
 
-    @OneToMany(
-            mappedBy = "orderHead",
-            cascade = CascadeType.ALL,
-            orphanRemoval = true)
-    private List<OrderLine> orderLines = new ArrayList<>();
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -81,13 +75,5 @@ public class OrderHead implements Serializable {
     @Override
     public int hashCode() {
         return Objects.hashCode(orderNumber);
-    }
-
-    public void addOrderLine(OrderLine orderLine) {
-        orderLines.add(orderLine);
-    }
-
-    public void removeOrderLine(OrderLine orderLine) {
-        orderLines.remove(orderLine);
     }
 }

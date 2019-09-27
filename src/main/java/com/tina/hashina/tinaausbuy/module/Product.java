@@ -6,7 +6,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -16,9 +15,7 @@ import org.joda.money.Money;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -59,12 +56,6 @@ public class Product implements Serializable {
     @UpdateTimestamp
     private Date updateTime;
 
-    @OneToMany(
-            mappedBy = "product",
-            cascade = CascadeType.ALL,
-            orphanRemoval = true)
-    private List<OrderLine> orderLines = new ArrayList<>();
-
     @JsonCreator
     public Product(@JsonProperty("proNameEng") String proNameEng,
                    @JsonProperty("proNameChn") String proNameChn,
@@ -94,14 +85,6 @@ public class Product implements Serializable {
 
     public void setPriceRmb(double priceRmb) {
         this.priceRmb = Money.of(CurrencyUnit.of("CNY"), priceRmb);
-    }
-
-    public void addOrderLine(OrderLine orderLine) {
-        orderLines.add(orderLine);
-    }
-
-    public void removeOrderLine(OrderLine orderLine) {
-        orderLines.remove(orderLine);
     }
 
     @Override

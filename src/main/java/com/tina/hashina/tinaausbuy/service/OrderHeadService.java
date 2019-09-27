@@ -103,16 +103,6 @@ public class OrderHeadService {
         return true;
     }
 
-    public boolean addOrderLine(OrderHead orderHead, OrderLine orderLine) {
-        orderHead.addOrderLine(orderLine);
-        return true;
-    }
-
-    public boolean deleteOrderLine(OrderHead orderHead, OrderLine orderLine) {
-        orderHead.removeOrderLine(orderLine);
-        return true;
-    }
-
     public List<OrderHead> findAllOrdersByUserId(Long userId) {
         List<OrderHead> orderHeads = orderHeadRepository
                 .findByClient_UserIdOrderByBookDateDesc(userId);

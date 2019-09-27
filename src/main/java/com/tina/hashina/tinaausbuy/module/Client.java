@@ -35,34 +35,6 @@ public class Client implements Serializable {
     @UpdateTimestamp
     private Date updateTime;
 
-    @OneToMany(
-            mappedBy = "client",
-            cascade = CascadeType.ALL,
-            orphanRemoval = true)
-    private List<OrderHead> orderHeads = new ArrayList<>();
-
-    @OneToMany(
-            mappedBy = "client",
-            cascade = CascadeType.ALL,
-            orphanRemoval = true)
-    private List<PostInfo> postInfos = new ArrayList<>();
-
-    public void addOrderHead(OrderHead orderHead) {
-        orderHeads.add(orderHead);
-    }
-
-    public void removeOrderHead(OrderHead orderHead) {
-        orderHeads.remove(orderHead);
-    }
-
-    public void addPostInfo(PostInfo postInfo) {
-        postInfos.add(postInfo);
-    }
-
-    public void removePostInfo(PostInfo postInfo) {
-        postInfos.remove(postInfo);
-    }
-
     @Override
     public String toString() {
         String userInfo = "UserId: " + getUserId().toString() + " UserName: " + getUserName();
