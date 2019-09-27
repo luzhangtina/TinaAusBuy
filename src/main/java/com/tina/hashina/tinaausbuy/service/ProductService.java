@@ -61,30 +61,6 @@ public class ProductService {
         return null;
     }
 
-    public List<Product> findProductByProductNameEng(String proNameEng) {
-        List<Product> products = productRepository.findByProNameEng(proNameEng);
-        products.forEach(product -> log.info("Product Found: {}", product));
-        return products;
-    }
-
-    public List<Product> findProductByProductNameChn(String proNameChn) {
-        List<Product> products = productRepository.findByProNameChn(proNameChn);
-        products.forEach(product -> log.info("Product Found: {}", product));
-        return products;
-    }
-
-    public List<Product> findProductLikeProductNameEng(String proNameEng) {
-        List<Product> products = productRepository.findByProNameEngContaining(proNameEng);
-        products.forEach(product -> log.info("Product Found: {}", product));
-        return products;
-    }
-
-    public List<Product> findProductLikeProductNameChn(String proNameChn) {
-        List<Product> products = productRepository.findByProNameChnContaining(proNameChn);
-        products.forEach(product -> log.info("Product Found: {}", product));
-        return products;
-    }
-
     public List<Product> getProducts() {
         List<Product> products = productRepository.findAll();
         products.forEach(product -> log.info("Product Found: {}", product));

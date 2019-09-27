@@ -45,4 +45,15 @@ public class ClientController {
         }
         return new ResponseEntity<>(savedClient, HttpStatus.OK);
     }
+
+    @PutMapping("/clients/{userId}")
+    public ResponseEntity<Client> updateClient(@PathVariable Long userId,
+                                               @Valid @RequestBody Client client) {
+        Client updatedClient = clientService.updateClient(userId, client);
+        if (updatedClient == null) {
+            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+        }
+
+        return new ResponseEntity<>(updatedClient, HttpStatus.OK);
+    }
 }

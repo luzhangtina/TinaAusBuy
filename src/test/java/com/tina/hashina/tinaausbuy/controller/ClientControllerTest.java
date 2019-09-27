@@ -13,7 +13,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
-import javax.swing.plaf.PanelUI;
 import java.util.Arrays;
 import java.util.List;
 
@@ -21,8 +20,7 @@ import static org.hamcrest.Matchers.hasSize;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.notNull;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -131,5 +129,39 @@ public class ClientControllerTest {
                 .accept(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isUnprocessableEntity());
+    }
+
+    @Test
+    public void updateClient_shouldReturn200() throws Exception {
+        Client client = new Client("client01",
+                "testWeChatId",
+                "testAliPayId",
+                "12345689");
+
+        when(clientService.updateClient(notNull(), notNull())).thenReturn(client);
+
+        this.mockMvc.perform(put("/clients/{userId}", 1)
+                .content(objectMapper.writeValueAsString(client))
+                .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
+                .accept(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.userName").value("client01"))
+                .andExpect(jsonPath("$.weChatId").value("testWeChatId"))
+                .andExpect(jsonPath("$.aliPayId").value("testAliPayId"))
+                .andExpect(jsonPath("$.phoneNumber").value("12345689"));
+    }
+
+    @Test
+    public void updateClient_shouldReturnNoContentWhenFailedUpdateClient() throws Exception {
+        when(clientService.updateClient(notNull(), notNull())).thenReturn(null);
+
+        this.mockMvc.perform(put("/clients/{userId}", 1)
+                .content(objectMapper.writeValueAsString(new Client("client01",
+                        "", "", "")))
+                .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
+                .accept(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().isNoContent());
     }
 }
