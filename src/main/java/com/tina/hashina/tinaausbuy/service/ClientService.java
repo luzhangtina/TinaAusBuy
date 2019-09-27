@@ -143,4 +143,14 @@ public class ClientService {
         clients.forEach(client -> log.info("Client Found: {}", client));
         return clients;
     }
+
+    public Client findClientId(Long userId) {
+        Optional<Client> client = clientRepository.findById(userId);
+        if (client.isPresent()) {
+            log.info("Client Found: {}", client.get());
+            return client.get();
+        }
+
+        return null;
+    }
 }

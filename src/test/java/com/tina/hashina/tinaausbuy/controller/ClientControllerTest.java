@@ -18,6 +18,7 @@ import java.util.List;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.junit.Assert.assertEquals;
+import static org.mockito.ArgumentMatchers.notNull;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -60,5 +61,13 @@ public class ClientControllerTest {
                 .andExpect(jsonPath("$", hasSize(2)))
                 .andExpect(jsonPath("$.[0].userName").value("client01"))
                 .andExpect(jsonPath("$.[1].userName").value("client02"));
+    }
+
+    @Test
+    public void getClientById_shouldReturnNoContentWhenClientNotExist() throws Exception {
+        when(clientService.findClientId(notNull())).thenReturn(null);
+        this.mockMvc.perform(get("/clients/{userId}", 1).accept(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().isNoContent());
     }
 }
