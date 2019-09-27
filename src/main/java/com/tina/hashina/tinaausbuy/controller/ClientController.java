@@ -1,16 +1,14 @@
 package com.tina.hashina.tinaausbuy.controller;
 
-import com.sun.deploy.util.SessionState;
 import com.tina.hashina.tinaausbuy.module.Client;
 import com.tina.hashina.tinaausbuy.service.ClientService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -37,5 +35,14 @@ public class ClientController {
         }
 
         return new ResponseEntity<>(client, HttpStatus.OK);
+    }
+
+    @PostMapping("/clients")
+    public ResponseEntity<Client> addClient(@Valid @RequestBody Client client) {
+        Client savedClient = clientService.createClient(client);
+        if (savedClient == null) {
+            return new ResponseEntity<>(null, HttpStatus.UNPROCESSABLE_ENTITY);
+        }
+        return new ResponseEntity<>(savedClient, HttpStatus.OK);
     }
 }

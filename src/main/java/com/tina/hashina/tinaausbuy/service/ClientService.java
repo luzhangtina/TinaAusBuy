@@ -19,15 +19,7 @@ public class ClientService {
     @Autowired
     ClientRepository clientRepository;
 
-    public Client createClient(String userName, String weChatId,
-                               String aliPayId, String phoneNumber) {
-        Client client = Client.builder()
-                .userName(userName)
-                .weChatId(weChatId)
-                .aliPayId(aliPayId)
-                .phoneNumber(phoneNumber)
-                .build();
-
+    public Client createClient(Client client) {
         Client savedClient = clientRepository.save(client);
         log.info("New Client: {}", savedClient);
         return savedClient;

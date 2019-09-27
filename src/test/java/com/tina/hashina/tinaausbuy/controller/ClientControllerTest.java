@@ -13,6 +13,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
+import javax.swing.plaf.PanelUI;
 import java.util.Arrays;
 import java.util.List;
 
@@ -21,6 +22,7 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.notNull;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -80,5 +82,54 @@ public class ClientControllerTest {
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.userName").value("client01"));
+    }
+
+    @Test
+    public void addClient_shouldReturnClient() throws Exception {
+        Client client = new Client("client01", "", "", "");
+
+        when(clientService.createClient(notNull())).thenReturn(client);
+
+        this.mockMvc.perform(post("/clients")
+                .content(objectMapper.writeValueAsString(client))
+                .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
+                .accept(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.userName").value("client01"));
+    }
+
+    @Test
+    public void addClient_shouldReturnBadRequestWhenUserNameIsNull() throws Exception {
+        Client client = new Client();
+
+        this.mockMvc.perform(post("/clients")
+                .content(objectMapper.writeValueAsString(client))
+                .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
+                .accept(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void addClient_shouldReturnBadRequestWhenRequestBodyIsNull() throws Exception {
+        this.mockMvc.perform(post("/clients")
+                .accept(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void addClient_shouldReturn422WhenFailedCreateClient() throws Exception {
+        Client client = new Client("client01", "", "", "");
+
+        when(clientService.createClient(notNull())).thenReturn(null);
+
+        this.mockMvc.perform(post("/clients")
+                .content(objectMapper.writeValueAsString(client))
+                .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
+                .accept(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().isUnprocessableEntity());
     }
 }
