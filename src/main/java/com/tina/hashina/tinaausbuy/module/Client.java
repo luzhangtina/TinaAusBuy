@@ -28,6 +28,13 @@ public class Client implements Serializable {
     private String aliPayId;
     private String phoneNumber;
 
+    public Client(String userName, String weChatId, String aliPayId, String phoneNumber) {
+        this.userName = userName;
+        this.weChatId = weChatId;
+        this.aliPayId = aliPayId;
+        this.phoneNumber = phoneNumber;
+    }
+
     @Column(updatable = false)
     @CreationTimestamp
     private Date createTime;
