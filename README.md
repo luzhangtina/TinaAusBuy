@@ -3,9 +3,9 @@
 
 # TinaAusBuy
 
-Developing an backend order management system using Spring Boot framework and Mysql database.
+Developing an order management system using Spring Boot framework and Mysql database.
 
-## Functionalities:
+## Functionality
 
 ### Product Management
 
@@ -51,13 +51,13 @@ Developing an backend order management system using Spring Boot framework and My
 * Getting sales performance based on client
 * Creating sales performance report based on client
 
-## Tools and Technologies:
+## Tools and Technologies
 
 * **Technology** : Java, Spring Boot, Hibernate, Junit, Maven, Jacoco.
 * **Application Server**: Apache Tomcat Server
 * **Database** : Mysql Database.
 
-## CI/CD:
+## CI/CD
 * Using Jacoco generate code coverage report
 * Using Maven Surefire generate test report
 * Integrating compilation, testing, packaging, test and code coverage report on Shippable
