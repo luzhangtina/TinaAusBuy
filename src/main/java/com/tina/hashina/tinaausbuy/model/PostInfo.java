@@ -1,5 +1,6 @@
 package com.tina.hashina.tinaausbuy.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -8,6 +9,8 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
@@ -23,8 +26,14 @@ public class PostInfo implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @NotNull
     private String name;
+
+    @NotNull
     private String address;
+
+    @NotNull
     private String phoneNumber;
 
     @Column(updatable = false)
@@ -37,6 +46,12 @@ public class PostInfo implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "client_userId")
     private Client client;
+
+    public PostInfo(String name, String address, String phoneNumber) {
+        this.name = name;
+        this.address = address;
+        this.phoneNumber = phoneNumber;
+    }
 
     @Override
     public boolean equals(Object o) {
