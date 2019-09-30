@@ -5,6 +5,9 @@ import com.tina.hashina.tinaausbuy.model.Product;
 import com.tina.hashina.tinaausbuy.repository.ProductRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,6 +15,7 @@ import java.util.Optional;
 
 @Service
 @Slf4j
+@CacheConfig(cacheNames = "Product")
 public class ProductService {
     @Autowired
     ProductRepository productRepository;
@@ -61,9 +65,14 @@ public class ProductService {
         return null;
     }
 
+    @Cacheable
     public List<Product> getProducts() {
         List<Product> products = productRepository.findAll();
         products.forEach(product -> log.info("Product Found: {}", product));
         return products;
+    }
+
+    @CacheEvict
+    public void reloadProducts() {
     }
 }
